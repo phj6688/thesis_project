@@ -1,0 +1,67 @@
+<h2>Thesis Workflow</h2>
+<h3>Choose the datasets for the experiment:</h3>
+<ul>
+    <li>PC</li>
+    <li>CR</li>
+    <li>SUBJ</li>
+    <li>TREC</li>
+    <li>SST-2</li>
+    <li>Kaggle Medical</li>
+    <li>Ohsumed</li>
+    <li>AG News</li>
+</ul>
+<h3>Select the data augmentation methods to be used:</h3>
+<ul>
+    <li>EDA</li>
+    <li>AEDA</li>
+    <li>WordNet</li>
+    <li>Backtranslation</li>
+    <li>Clare</li>
+    <li>Checklist</li>
+    <li>Data Boost</li>
+</ul>
+<h3>Decide on the models to be used for the experiment:</h3>
+<ul>
+    <li>RNN (bidirectional LSTM)</li>
+    <li>CNN</li>
+    <li>BERT</li>
+</ul>
+<h3>Prepare the data:</h3>
+<ul>
+    <li>Load the datasets into memory.</li>
+    <li>Preprocess the datasets as necessary (e.g., remove punctuation, stop words, etc.).</li>
+    <li>Divide the training set into sub-samples of 10%, 20%, 50%, and 100%.</li>
+</ul>
+<h3>Train the models on the original training data and test on the testing data:</h3>
+<ul>
+    <li>Train an RNN (bidirectional LSTM) model.</li>
+    <li>Train a CNN model.</li>
+    <li>Train a BERT model.</li>
+    <li>Test the models on the testing data and record the results.</li>
+</ul>
+<h3>Augment the training data with one, two, and four samples per data point:</h3>
+<ul>
+    <li>Apply each of the selected data augmentation methods to each training data sub-sample.</li>
+    <li>Combine the augmented sub-samples with the original sub-sample.</li>
+    <li>Train the models on the augmented training data and test on the testing data:</li>
+    <ul>
+        <li>Train an RNN (bidirectional LSTM) model on the augmented data.</li>
+        <li>Train a CNN model on the augmented data.</li>
+        <li>Train a BERT model on the augmented data.</li>
+        <li>Test the models on the testing data and record the results.</li>
+    </ul>
+</ul>
+<h3>Analyze the results:</h3>
+<ul>
+    <li>Compare the performance of the models trained on the original data to the models trained on the augmented data.</li>
+    <li>Analyze the impact of the different data augmentation methods on the model performance.</li>
+    <li>Use common metrics such as accuracy, f1, and auc to evaluate the performance.</li>
+    <li>Visualize the augmented data using tsne, umap, and pca to compare it to the original data.</li>
+</ul>
+<h3>Write up the results:</h3>
+<ul>
+    <li>Summarize the experiment.</li>
+    <li>Report the results of the experiment.</li>
+    <li>Discuss the implications of the results.</li>
+    <li>Make recommendations for future research.</li>
+</ul>
