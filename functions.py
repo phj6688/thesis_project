@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from textattack.augmentation import *
 from aeda import Aeda_Augmenter
+from clare import Clare_Augmenter
 import os
 
 
@@ -27,7 +28,8 @@ def load_data(path):
         return df
     else:
         #raise ValueError('File format not supported.')
-        df = pd.read_csv(path,  header=None, names=['class','text'])
+        df = pd.read_csv(path,  header=None, names=['class','text'],dtype={'class': int , 'text': str},skiprows=1)
+        return df
 
 def csv_to_txt(file):
     '''retun a txt file from a csv file with 
@@ -47,7 +49,7 @@ def augment_text(df,aug_method,fraction,pct_words_to_swap,transformations_per_ex
     'wordnet_augmenter':WordNetAugmenter(pct_words_to_swap=pct_words_to_swap,
                                     transformations_per_example=transformations_per_example)
                                     ,
-    'clare_augmenter' :CLAREAugmenter(pct_words_to_swap=pct_words_to_swap,
+    'clare_augmenter' :Clare_Augmenter(pct_words_to_swap=pct_words_to_swap,
                                     transformations_per_example=transformations_per_example)
                                     ,
     'backtranslation_augmenter':BackTranslationAugmenter(pct_words_to_swap=pct_words_to_swap,
@@ -56,13 +58,15 @@ def augment_text(df,aug_method,fraction,pct_words_to_swap,transformations_per_ex
     'checklist_augmenter' :CheckListAugmenter(pct_words_to_swap=pct_words_to_swap,
                                         transformations_per_example=transformations_per_example)
                                         ,
-    # 'embedding_augmenter':EmbeddingAugmenter(pct_words_to_swap=pct_words_to_swap,
-    #                                 transformations_per_example=transformations_per_example)
-    #                                 ,
-    # 'deletion_augmenter':DeletionAugmenter(pct_words_to_swap=pct_words_to_swap,
-    #                                 transformations_per_example=transformations_per_example)
+    'embedding_augmenter':EmbeddingAugmenter(pct_words_to_swap=pct_words_to_swap,
+                                    transformations_per_example=transformations_per_example)
+                                    ,
+    'deletion_augmenter':DeletionAugmenter(pct_words_to_swap=pct_words_to_swap,
+                                    transformations_per_example=transformations_per_example)
+                                    ,
     'aeda_augmenter':Aeda_Augmenter(pct_words_to_swap=pct_words_to_swap,
-                            transformations_per_example=transformations_per_example),
+                            transformations_per_example=transformations_per_example)
+                                    ,
     'charswap_augmenter':CharSwapAugmenter(pct_words_to_swap=pct_words_to_swap,
                                     transformations_per_example=transformations_per_example)
     }

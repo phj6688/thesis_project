@@ -22,7 +22,7 @@ class Aeda_Augmenter:
 
 	def insert_punctuation_marks(self,sentence):
 		PUNCTUATIONS = ('.', ',', '!', '?', ';', ':')
-		words = sentence.split(' ')
+		words = str(sentence).split(' ')
 		new_line = []
 		q = random.randint(1, int(self.pct_words_to_swap * len(words) + 1))
 		qs = random.sample(range(0, len(words)), q)
