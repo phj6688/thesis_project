@@ -3,6 +3,7 @@ import numpy as np
 from textattack.augmentation import *
 from aeda import Aeda_Augmenter
 from clare import Clare_Augmenter
+from backtranslation import BackTranslation_Augmenter
 import os
 
 
@@ -52,7 +53,7 @@ def augment_text(df,aug_method,fraction,pct_words_to_swap,transformations_per_ex
     'clare_augmenter' :Clare_Augmenter(pct_words_to_swap=pct_words_to_swap,
                                     transformations_per_example=transformations_per_example)
                                     ,
-    'backtranslation_augmenter':BackTranslationAugmenter(pct_words_to_swap=pct_words_to_swap,
+    'backtranslation_augmenter':BackTranslation_Augmenter(pct_words_to_swap=pct_words_to_swap,
                                     transformations_per_example=transformations_per_example)
                                     ,
     'checklist_augmenter' :CheckListAugmenter(pct_words_to_swap=pct_words_to_swap,
