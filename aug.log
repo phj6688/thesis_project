@@ -1,0 +1,143 @@
+2023-03-09 13:32:49,251:INFO:__main__:Starting augmentation for cr dataset using aeda method
+2023-03-09 13:32:49,259:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-03-09 13:32:55,750:INFO:__main__:Augmentation completed successfully for cr dataset using aeda method. Augmented 8134 examples.
+2023-03-09 13:32:55,751:INFO:__main__:Starting augmentation for cr dataset using checklist method
+2023-03-09 13:32:55,757:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-03-09 13:40:17,342:INFO:__main__:Augmentation completed successfully for cr dataset using checklist method. Augmented 8134 examples.
+2023-03-09 13:40:17,342:INFO:__main__:Starting augmentation for cr dataset using eda method
+2023-03-09 13:40:17,350:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-03-09 13:56:26,357:INFO:__main__:Augmentation completed successfully for cr dataset using eda method. Augmented 8134 examples.
+2023-03-09 13:56:26,358:INFO:__main__:Starting augmentation for cr dataset using wordnet method
+2023-03-09 13:56:26,365:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-03-09 14:04:02,910:INFO:__main__:Augmentation completed successfully for cr dataset using wordnet method. Augmented 8134 examples.
+2023-03-09 14:04:02,910:INFO:__main__:Starting augmentation for cr dataset using charswap method
+2023-03-09 14:04:02,917:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-03-09 14:08:40,400:INFO:__main__:Augmentation completed successfully for cr dataset using charswap method. Augmented 8134 examples.
+2023-03-09 14:08:40,401:INFO:__main__:Starting augmentation for cr dataset using deletion method
+2023-03-09 14:08:40,408:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-03-09 14:11:09,660:INFO:__main__:Augmentation completed successfully for cr dataset using deletion method. Augmented 8134 examples.
+2023-03-09 14:11:09,661:INFO:__main__:Starting augmentation for cr dataset using embedding method
+2023-03-09 14:11:09,668:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-03-09 15:02:06,851:INFO:__main__:Augmentation completed successfully for cr dataset using embedding method. Augmented 8134 examples.
+2023-03-09 15:02:06,852:INFO:__main__:Starting augmentation for cr dataset using clare method
+2023-03-09 15:02:06,859:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-03-09 18:07:32,429:INFO:__main__:Augmentation completed successfully for cr dataset using clare method. Augmented 8134 examples.
+2023-03-09 18:07:32,429:INFO:__main__:Starting augmentation for cr dataset using backtranslation method
+2023-03-09 18:07:32,436:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-03-10 12:18:57,544:INFO:__main__:Augmentation completed successfully for cr dataset using backtranslation method. Augmented 8134 examples.
+2023-03-10 12:18:57,544:INFO:__main__:Starting augmentation for kaggle_med dataset using aeda method
+2023-03-10 12:18:57,558:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-03-10 12:18:57,859:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using aeda method. Augmented 8490 examples.
+2023-03-10 12:18:57,859:INFO:__main__:Starting augmentation for kaggle_med dataset using checklist method
+2023-03-10 12:18:57,867:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-03-10 12:27:02,568:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using checklist method. Augmented 8490 examples.
+2023-03-10 12:27:02,568:INFO:__main__:Starting augmentation for kaggle_med dataset using eda method
+2023-03-10 12:27:02,580:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-03-10 12:46:44,444:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using eda method. Augmented 8490 examples.
+2023-03-10 12:46:44,444:INFO:__main__:Starting augmentation for kaggle_med dataset using wordnet method
+2023-03-10 12:46:44,452:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-03-10 12:55:12,408:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using wordnet method. Augmented 8490 examples.
+2023-03-10 12:55:12,408:INFO:__main__:Starting augmentation for kaggle_med dataset using charswap method
+2023-03-10 12:55:12,416:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-03-10 13:04:47,640:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using charswap method. Augmented 8490 examples.
+2023-03-10 13:04:47,640:INFO:__main__:Starting augmentation for kaggle_med dataset using deletion method
+2023-03-10 13:04:47,648:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-03-10 13:08:07,611:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using deletion method. Augmented 8490 examples.
+2023-03-10 13:08:07,611:INFO:__main__:Starting augmentation for kaggle_med dataset using embedding method
+2023-03-10 13:08:07,619:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-03-10 14:31:36,740:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using embedding method. Augmented 8490 examples.
+2023-03-10 14:31:36,740:INFO:__main__:Starting augmentation for kaggle_med dataset using clare method
+2023-03-10 14:31:36,748:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-03-10 18:16:43,014:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using clare method. Augmented 8490 examples.
+2023-03-10 18:16:43,014:INFO:__main__:Starting augmentation for kaggle_med dataset using backtranslation method
+2023-03-10 18:16:43,022:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-03-11 20:55:33,124:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using backtranslation method. Augmented 8490 examples.
+2023-03-11 20:55:33,124:INFO:__main__:Starting augmentation for trec dataset using aeda method
+2023-03-11 20:55:33,142:INFO:__main__:Loaded trec dataset with 5452 rows successfully
+2023-03-11 20:55:33,407:INFO:__main__:Augmentation completed successfully for trec dataset using aeda method. Augmented 10904 examples.
+2023-03-11 20:55:33,407:INFO:__main__:Starting augmentation for trec dataset using checklist method
+2023-03-11 20:55:33,413:INFO:__main__:Loaded trec dataset with 5452 rows successfully
+2023-03-11 21:00:31,954:INFO:__main__:Augmentation completed successfully for trec dataset using checklist method. Augmented 10904 examples.
+2023-03-11 21:00:31,955:INFO:__main__:Starting augmentation for trec dataset using eda method
+2023-03-11 21:00:31,961:INFO:__main__:Loaded trec dataset with 5452 rows successfully
+2023-03-11 21:02:46,381:INFO:__main__:Augmentation completed successfully for trec dataset using eda method. Augmented 10904 examples.
+2023-03-11 21:02:46,381:INFO:__main__:Starting augmentation for trec dataset using wordnet method
+2023-03-11 21:02:46,387:INFO:__main__:Loaded trec dataset with 5452 rows successfully
+2023-03-11 21:03:46,527:INFO:__main__:Augmentation completed successfully for trec dataset using wordnet method. Augmented 10904 examples.
+2023-03-11 21:03:46,527:INFO:__main__:Starting augmentation for trec dataset using charswap method
+2023-03-11 21:03:46,534:INFO:__main__:Loaded trec dataset with 5452 rows successfully
+2023-03-11 21:04:39,714:INFO:__main__:Augmentation completed successfully for trec dataset using charswap method. Augmented 10904 examples.
+2023-03-11 21:04:39,714:INFO:__main__:Starting augmentation for trec dataset using deletion method
+2023-03-11 21:04:39,720:INFO:__main__:Loaded trec dataset with 5452 rows successfully
+2023-03-11 21:05:01,371:INFO:__main__:Augmentation completed successfully for trec dataset using deletion method. Augmented 10904 examples.
+2023-03-11 21:05:01,371:INFO:__main__:Starting augmentation for trec dataset using embedding method
+2023-03-11 21:05:01,377:INFO:__main__:Loaded trec dataset with 5452 rows successfully
+2023-03-11 21:14:53,759:INFO:__main__:Augmentation completed successfully for trec dataset using embedding method. Augmented 10904 examples.
+2023-03-11 21:14:53,759:INFO:__main__:Starting augmentation for trec dataset using clare method
+2023-03-11 21:14:53,765:INFO:__main__:Loaded trec dataset with 5452 rows successfully
+2023-03-12 00:47:57,528:INFO:__main__:Augmentation completed successfully for trec dataset using clare method. Augmented 10904 examples.
+2023-03-12 00:47:57,528:INFO:__main__:Starting augmentation for trec dataset using backtranslation method
+2023-03-12 00:47:57,534:INFO:__main__:Loaded trec dataset with 5452 rows successfully
+2023-03-12 13:57:36,683:INFO:__main__:Augmentation completed successfully for trec dataset using backtranslation method. Augmented 10904 examples.
+2023-03-12 13:57:36,683:INFO:__main__:Starting augmentation for sst2 dataset using aeda method
+2023-03-12 13:57:36,705:INFO:__main__:Loaded sst2 dataset with 7791 rows successfully
+2023-03-12 13:57:37,078:INFO:__main__:Augmentation completed successfully for sst2 dataset using aeda method. Augmented 15582 examples.
+2023-03-12 13:57:37,078:INFO:__main__:Starting augmentation for sst2 dataset using checklist method
+2023-03-12 13:57:37,090:INFO:__main__:Loaded sst2 dataset with 7791 rows successfully
+2023-03-12 14:09:52,248:INFO:__main__:Augmentation completed successfully for sst2 dataset using checklist method. Augmented 15582 examples.
+2023-03-12 14:09:52,249:INFO:__main__:Starting augmentation for sst2 dataset using eda method
+2023-03-12 14:09:52,260:INFO:__main__:Loaded sst2 dataset with 7791 rows successfully
+2023-03-12 14:31:33,125:INFO:__main__:Augmentation completed successfully for sst2 dataset using eda method. Augmented 15582 examples.
+2023-03-12 14:31:33,126:INFO:__main__:Starting augmentation for sst2 dataset using wordnet method
+2023-03-12 14:31:33,137:INFO:__main__:Loaded sst2 dataset with 7791 rows successfully
+2023-03-12 14:41:22,430:INFO:__main__:Augmentation completed successfully for sst2 dataset using wordnet method. Augmented 15582 examples.
+2023-03-12 14:41:22,430:INFO:__main__:Starting augmentation for sst2 dataset using charswap method
+2023-03-12 14:41:22,442:INFO:__main__:Loaded sst2 dataset with 7791 rows successfully
+2023-03-12 14:48:28,514:INFO:__main__:Augmentation completed successfully for sst2 dataset using charswap method. Augmented 15582 examples.
+2023-03-12 14:48:28,514:INFO:__main__:Starting augmentation for sst2 dataset using deletion method
+2023-03-12 14:48:28,526:INFO:__main__:Loaded sst2 dataset with 7791 rows successfully
+2023-03-12 14:51:59,004:INFO:__main__:Augmentation completed successfully for sst2 dataset using deletion method. Augmented 15582 examples.
+2023-03-12 14:51:59,004:INFO:__main__:Starting augmentation for sst2 dataset using embedding method
+2023-03-12 14:51:59,018:INFO:__main__:Loaded sst2 dataset with 7791 rows successfully
+2023-03-12 16:07:46,682:INFO:__main__:Augmentation completed successfully for sst2 dataset using embedding method. Augmented 15582 examples.
+2023-03-12 16:07:46,682:INFO:__main__:Starting augmentation for sst2 dataset using clare method
+2023-03-12 16:07:46,694:INFO:__main__:Loaded sst2 dataset with 7791 rows successfully
+2023-03-12 22:03:52,210:INFO:__main__:Augmentation completed successfully for sst2 dataset using clare method. Augmented 15582 examples.
+2023-03-12 22:03:52,210:INFO:__main__:Starting augmentation for sst2 dataset using backtranslation method
+2023-03-12 22:03:52,222:INFO:__main__:Loaded sst2 dataset with 7791 rows successfully
+2023-03-14 08:34:40,165:INFO:__main__:Augmentation completed successfully for sst2 dataset using backtranslation method. Augmented 15582 examples.
+2023-03-14 08:34:40,165:INFO:__main__:Starting augmentation for subj dataset using aeda method
+2023-03-14 08:34:40,205:INFO:__main__:Loaded subj dataset with 9000 rows successfully
+2023-03-14 08:34:40,647:INFO:__main__:Augmentation completed successfully for subj dataset using aeda method. Augmented 18000 examples.
+2023-03-14 08:34:40,648:INFO:__main__:Starting augmentation for subj dataset using checklist method
+2023-03-14 08:34:40,660:INFO:__main__:Loaded subj dataset with 9000 rows successfully
+2023-03-14 08:57:39,809:INFO:__main__:Augmentation completed successfully for subj dataset using checklist method. Augmented 18000 examples.
+2023-03-14 08:57:39,809:INFO:__main__:Starting augmentation for subj dataset using eda method
+2023-03-14 08:57:39,823:INFO:__main__:Loaded subj dataset with 9000 rows successfully
+2023-03-14 09:38:16,689:INFO:__main__:Augmentation completed successfully for subj dataset using eda method. Augmented 18000 examples.
+2023-03-14 09:38:16,689:INFO:__main__:Starting augmentation for subj dataset using wordnet method
+2023-03-14 09:38:16,703:INFO:__main__:Loaded subj dataset with 9000 rows successfully
+2023-03-14 09:56:41,894:INFO:__main__:Augmentation completed successfully for subj dataset using wordnet method. Augmented 18000 examples.
+2023-03-14 09:56:41,894:INFO:__main__:Starting augmentation for subj dataset using charswap method
+2023-03-14 09:56:41,907:INFO:__main__:Loaded subj dataset with 9000 rows successfully
+2023-03-14 10:10:34,439:INFO:__main__:Augmentation completed successfully for subj dataset using charswap method. Augmented 18000 examples.
+2023-03-14 10:10:34,440:INFO:__main__:Starting augmentation for subj dataset using deletion method
+2023-03-14 10:10:34,453:INFO:__main__:Loaded subj dataset with 9000 rows successfully
+2023-03-14 10:17:08,046:INFO:__main__:Augmentation completed successfully for subj dataset using deletion method. Augmented 18000 examples.
+2023-03-14 10:17:08,046:INFO:__main__:Starting augmentation for subj dataset using embedding method
+2023-03-14 10:17:08,059:INFO:__main__:Loaded subj dataset with 9000 rows successfully
+2023-03-14 12:43:39,281:INFO:__main__:Augmentation completed successfully for subj dataset using embedding method. Augmented 18000 examples.
+2023-03-14 12:43:39,281:INFO:__main__:Starting augmentation for subj dataset using clare method
+2023-03-14 12:43:39,294:INFO:__main__:Loaded subj dataset with 9000 rows successfully
+2023-03-14 19:55:13,403:INFO:__main__:Augmentation completed successfully for subj dataset using clare method. Augmented 18000 examples.
+2023-03-14 19:55:13,403:INFO:__main__:Starting augmentation for subj dataset using backtranslation method
+2023-03-14 19:55:13,416:INFO:__main__:Loaded subj dataset with 9000 rows successfully
+2023-03-16 21:58:23,341:INFO:__main__:Augmentation completed successfully for subj dataset using backtranslation method. Augmented 18000 examples.
+2023-03-16 21:58:23,342:INFO:__main__:Starting augmentation for yelp dataset using aeda method
+2023-03-16 21:58:23,443:INFO:__main__:Loaded yelp dataset with 9000 rows successfully
+2023-03-16 21:58:25,033:INFO:__main__:Augmentation completed successfully for yelp dataset using aeda method. Augmented 18000 examples.
+2023-03-16 21:58:25,033:INFO:__main__:Starting augmentation for yelp dataset using checklist method
+2023-03-16 21:58:25,084:INFO:__main__:Loaded yelp dataset with 9000 rows successfully
+2023-03-17 07:02:11,608:INFO:__main__:Augmentation completed successfully for yelp dataset using checklist method. Augmented 18000 examples.
+2023-03-17 07:02:11,608:INFO:__main__:Starting augmentation for yelp dataset using eda method
+2023-03-17 07:02:11,658:INFO:__main__:Loaded yelp dataset with 9000 rows successfully
