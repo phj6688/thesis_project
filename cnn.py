@@ -4,8 +4,8 @@ import pandas as pd
 from sklearn.utils import shuffle
 from sklearn.metrics import accuracy_score
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv1D, GlobalMaxPooling1D
-from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.layers import Dense, Conv1D, GlobalMaxPooling1D, Dropout
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from tensorflow.keras.callbacks import TensorBoard
 import tensorflow_addons as tfa
 import tensorflow as tf
@@ -46,13 +46,21 @@ class CNN:
         tf.keras.metrics.AUC(name='auc'),
         tfa.metrics.F1Score(self.num_classes, average='weighted', name='f1_score')]
 
-        optimizer = tf.keras.optimizers.Adam(learning_rate=0.001,)
+        optimizer = tf.keras.optimizers.Adam(learning_rate=0.0005)
+        # optimizer = tf.keras.optimizers.RMSprop(learning_rate=0.001)
+
 
         model = Sequential()
-        model.add(Conv1D(128, 5, activation='relu', input_shape=(self.sentence_length, self.dimensions)))
+        model.add(Conv1D(256, 5, activation='relu', input_shape=(self.sentence_length, self.dimensions)))
+        model.add(Dropout(0.5))
         model.add(GlobalMaxPooling1D())
+        model.add(Dense(256, activation='relu'))
         model.add(Dense(128, activation='relu'))
+        model.add(Dropout(0.5))
         model.add(Dense(self.num_classes, activation=activation))
+        # model.add(Dense(128, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001), kernel_initializer='he_normal'))
+        # model.add(Dropout(0.5))
+        # model.add(Dense(self.num_classes, activation=activation, kernel_regularizer=tf.keras.regularizers.l2(0.001), kernel_initializer='he_normal'))
         model.compile(loss=loss, optimizer=optimizer, metrics=metrics)
         return model
 
@@ -71,24 +79,44 @@ class CNN:
         x_matrix = np.zeros((num_lines, self.sentence_length, self.dimensions))
         y_matrix = np.zeros((num_lines, self.num_classes))
 
+
         # insert values
         for i, row in df_train.iterrows():
-            label = int(row[0])
+            label = row[0]
             label_idx = self.label_mapping[label]
             sentence = row[1]
-            words = sentence.split()[:self.sentence_length]
-            for j, word in enumerate(words):
-                if word in self.w2v:
-                    x_matrix[i, j, :] = self.w2v[word]
+            if isinstance(sentence, str):
+                words = sentence.split()[:self.sentence_length]
+                for j, word in enumerate(words):
+                    if word in self.w2v:
+                        x_matrix[i, j, :] = self.w2v[word]
+            else:
+                print(f"Warning: Skipping row {i} due to invalid sentence data: {sentence}")            
             y_matrix[i][label_idx] = 1.0
+
+        # # insert values
+        # for i, row in df_train.iterrows():
+        #     label = int(row[0])
+        #     label_idx = self.label_mapping[label]
+        #     sentence = row[1]
+        #     words = sentence.split()[:self.sentence_length]
+        #     for j, word in enumerate(words):
+        #         if word in self.w2v:
+        #             x_matrix[i, j, :] = self.w2v[word]
+        #     y_matrix[i][label_idx] = 1.0
 
         # train model
         self.model = self.build_cnn()
         log_dir = "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
         tensorboard_callback = TensorBoard(log_dir=log_dir, histogram_freq=1)
-        callbacks = [EarlyStopping(monitor='val_loss', patience=3), tensorboard_callback]
-        self.model.fit(x_matrix, y_matrix, epochs=100000, callbacks=callbacks, validation_split=0.1,
-                       batch_size=4, shuffle=True, verbose=0)
+#        callbacks = [EarlyStopping(monitor='val_loss', patience=3), tensorboard_callback]
+        callbacks = [
+        EarlyStopping(monitor='val_loss', patience=10),
+        #ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=2, min_lr=0.00001),
+        tensorboard_callback]
+
+        self.model.fit(x_matrix, y_matrix, epochs=100, callbacks=callbacks, validation_split=0.1,
+                       batch_size=16, shuffle=True, verbose=0)
         
         # clean memory
         del x_matrix, y_matrix, df_train
@@ -107,35 +135,42 @@ class CNN:
             label = row[0]
             label_idx = self.label_mapping[label]
             sentence = row[1]
-            words = sentence.split()[:self.sentence_length]
-            for j, word in enumerate(words):
-                if word in self.w2v:
-                    x_matrix[i, j, :] = self.w2v[word]
+            if isinstance(sentence, str):
+                words = sentence.split()[:self.sentence_length]
+                for j, word in enumerate(words):
+                    if word in self.w2v:
+                        x_matrix[i, j, :] = self.w2v[word]
+            else:
+                print(f"Warning: Skipping row {i} due to invalid sentence data: {sentence}")            
             y_matrix[i][label_idx] = 1.0
 
-        # predict labels
-        y_pred = self.model.predict(x_matrix)
-        test_y_cat = np.argmax(y_matrix, axis=1)
-        y_pred_cat = np.argmax(y_pred, axis=1)
-        acc = accuracy_score(test_y_cat, y_pred_cat)
+        # evaluate model
+        scores = self.model.evaluate(x_matrix, y_matrix, batch_size=16, verbose=0)
+
+        # print results
+        metric_names = self.model.metrics_names
+        results = {name: score for name, score in zip(metric_names, scores)}
+        for name, score in results.items():
+            print(f"{name}: {score}")
 
         # clean memory
         del x_matrix, y_matrix, df_test
+        return results
 
-        return acc
+
 
 if __name__=='__main__':
 
     # hyperparameters
-    sentence_length = 128
+    sentence_length = 32
     dimensions = 300    
     w2v_file = 'w2v.pkl'
-    train_file = './data/original/bbc/train.csv'
-    test_file = './data/original/bbc/test.csv'
+    train_file = './data/original/cardio/train.csv'
+    test_file = './data/original/cardio/test.csv'
     # train model
     model = CNN(sentence_length, dimensions, w2v_file)
     model.fit(train_file)
-
+    os.system('clear')
     # test model
     acc = model.predict(test_file)
     print('Test accuracy: {}'.format(acc))
