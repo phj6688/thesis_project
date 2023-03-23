@@ -65,63 +65,36 @@ class CNN:
         return model
 
     def fit(self, train_txt):
-        # read in data
-        df_train = pd.read_csv(train_txt, header=None, skiprows=1)
-        df_train = shuffle(df_train, random_state=100)
-
-        # get number of classes and create label mapping
-        unique_labels = sorted(df_train[0].unique())
-        self.num_classes = len(unique_labels)      
+    # Read the number of unique labels and create the label_mapping
+        df_labels = pd.read_csv(train_txt, header=None, usecols=[0], skiprows=1)
+        unique_labels = sorted(df_labels[0].unique())
+        self.num_classes = len(unique_labels)
         self.label_mapping = {label: idx for idx, label in enumerate(unique_labels)}
 
-        # initialize x and y matrices
-        num_lines = len(df_train)
-        x_matrix = np.zeros((num_lines, self.sentence_length, self.dimensions))
-        y_matrix = np.zeros((num_lines, self.num_classes))
-
-
-        # insert values
-        for i, row in df_train.iterrows():
-            label = row[0]
-            label_idx = self.label_mapping[label]
-            sentence = row[1]
-            if isinstance(sentence, str):
-                words = sentence.split()[:self.sentence_length]
-                for j, word in enumerate(words):
-                    if word in self.w2v:
-                        x_matrix[i, j, :] = self.w2v[word]
-            else:
-                print(f"Warning: Skipping row {i} due to invalid sentence data: {sentence}")            
-            y_matrix[i][label_idx] = 1.0
-
-
-        # train model
+        # Initialize the model
         self.model = self.build_cnn()
-        log_dir = "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
-        tensorboard_callback = TensorBoard(log_dir=log_dir, histogram_freq=1)
-#        callbacks = [EarlyStopping(monitor='val_loss', patience=3), tensorboard_callback]
-        callbacks = [
-        EarlyStopping(monitor='val_loss', patience=10),
-        #ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=2, min_lr=0.00001),
-        tensorboard_callback]
 
-        self.model.fit(x_matrix, y_matrix, epochs=100, callbacks=callbacks, validation_split=0.1,
-                       batch_size=8, shuffle=True, verbose=0)
-        
-        # clean memory
-        del x_matrix, y_matrix, df_train
+        # Train the model on each chunk
+        chunksize = 5000  # Adjust this value according to your memory availability
+        num_epochs = 100
+        for epoch in range(num_epochs):
+            print(f'Epoch {epoch + 1}/{num_epochs}')
+            chunk_iter = pd.read_csv(train_txt, header=None, skiprows=1, chunksize=chunksize)
+            for chunk in chunk_iter:
+                chunk = shuffle(chunk, random_state=100)
+                x_matrix, y_matrix = self.process_chunk(chunk)
+                self.model.train_on_batch(x_matrix, y_matrix)
+
+    # Clean memory
         gc.collect()
 
-    def predict(self, test_txt):
-        # read in data
-        df_test = pd.read_csv(test_txt, header=None, skiprows=1)
-        # initialize x and y matrices
-        num_lines = len(df_test)
+
+    def process_chunk(self, chunk):
+        num_lines = len(chunk)
         x_matrix = np.zeros((num_lines, self.sentence_length, self.dimensions))
         y_matrix = np.zeros((num_lines, self.num_classes))
-        
-        # insert values
-        for i, row in df_test.iterrows():
+
+        for index, (_, row) in enumerate(chunk.iterrows()):
             label = row[0]
             label_idx = self.label_mapping[label]
             sentence = row[1]
@@ -129,23 +102,43 @@ class CNN:
                 words = sentence.split()[:self.sentence_length]
                 for j, word in enumerate(words):
                     if word in self.w2v:
-                        x_matrix[i, j, :] = self.w2v[word]
+                        x_matrix[index, j, :] = self.w2v[word]
             else:
-                print(f"Warning: Skipping row {i} due to invalid sentence data: {sentence}")            
-            y_matrix[i][label_idx] = 1.0
+                print(f"Warning: Skipping row {index} due to invalid sentence data: {sentence}")
+            y_matrix[index][label_idx] = 1.0
 
-        # evaluate model
-        scores = self.model.evaluate(x_matrix, y_matrix, batch_size=8, verbose=0)
 
-        # print results
-        metric_names = self.model.metrics_names
-        results = {name: score for name, score in zip(metric_names, scores)}
-        for name, score in results.items():
-            print(f"{name}: {score}")
+        return x_matrix, y_matrix   
 
-        # clean memory
-        del x_matrix, y_matrix, df_test
-        return results
+
+    def predict(self, test_txt):
+        chunksize = 5000  # Adjust this value according to your memory availability
+        chunk_iter = pd.read_csv(test_txt, header=None, skiprows=1, chunksize=chunksize)
+
+        total_samples = 0
+        correct_predictions = 0
+
+        for chunk in chunk_iter:
+            x_matrix, y_matrix = self.process_chunk(chunk)
+            y_pred = self.model.predict(x_matrix)
+
+            if self.num_classes > 2:
+                y_pred_classes = np.argmax(y_pred, axis=1)
+                y_true_classes = np.argmax(y_matrix, axis=1)
+            else:
+                y_pred_classes = (y_pred > 0.5).astype(int).flatten()
+                y_true_classes = y_matrix.flatten()
+
+            correct_predictions += np.sum(y_pred_classes == y_true_classes)
+            total_samples += len(y_matrix)
+
+        accuracy = correct_predictions / total_samples
+        print(f'Test accuracy: {accuracy}')
+
+        # Clean memory
+        gc.collect()
+        return accuracy
+
 
 
 
