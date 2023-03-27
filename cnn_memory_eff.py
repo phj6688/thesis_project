@@ -75,8 +75,8 @@ class CNN:
         self.model = self.build_cnn()
 
         # Train the model on each chunk
-        chunksize = 5000  # Adjust this value according to your memory availability
-        num_epochs = 100
+        chunksize = 50000  # Adjust this value according to your memory availability
+        num_epochs = 20
         for epoch in range(num_epochs):
             print(f'Epoch {epoch + 1}/{num_epochs}')
             chunk_iter = pd.read_csv(train_txt, header=None, skiprows=1, chunksize=chunksize)
@@ -112,7 +112,7 @@ class CNN:
 
 
     def predict(self, test_txt):
-        chunksize = 5000  # Adjust this value according to your memory availability
+        chunksize = 10000  # Adjust this value according to your memory availability
         chunk_iter = pd.read_csv(test_txt, header=None, skiprows=1, chunksize=chunksize)
 
         total_samples = 0
@@ -145,7 +145,7 @@ class CNN:
 if __name__=='__main__':
 
     # hyperparameters
-    sentence_length = 128
+    sentence_length = 32
     dimensions = 300    
     w2v_file = 'w2v.pkl'
     train_file = './data/original/cardio/train.csv'
