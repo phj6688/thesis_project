@@ -108,7 +108,7 @@ class CNN:
 
         train_df = train_df.sample(frac=1).reset_index(drop=True)
         test_df = test_df.sample(frac=1).reset_index(drop=True)
-        val_df = val_df.sample(frac=1).reset_index(drop=True)
+        val_df = val_df.sample(frac=1,random_state=100).reset_index(drop=True)
 
         train_x, train_y = insert(train_df)
         test_x, test_y = insert(test_df)
@@ -154,14 +154,14 @@ class CNN:
 
     
 
-if __name__ == '__main__':
-    train_path  = 'data/original/trec/train.csv'
-    test_path   = 'data/original/trec/test.csv'
-    w2v_path = 'w2v.pkl'
-    max_seq_len = 150
-    batch_size = 8
-    epochs = 30
-    model = CNN(dims=300, max_seq_len=max_seq_len, batch_size=batch_size, epochs=epochs, w2v_path=w2v_path)
-    train_x, train_y, test_x, test_y, val_x, val_y, n_classes = model.insert_values(train_path,test_path)
-    his,res,avg = model.run_n_times(train_x, train_y, test_x, test_y, val_x, val_y, n=3)
-    print (avg)
+# if __name__ == '__main__':
+#     train_path  = 'data/original/trec/train.csv'
+#     test_path   = 'data/original/trec/test.csv'
+#     w2v_path = 'w2v.pkl'
+#     max_seq_len = 150
+#     batch_size = 8
+#     epochs = 30
+#     model = CNN(dims=300, max_seq_len=max_seq_len, batch_size=batch_size, epochs=epochs, w2v_path=w2v_path)
+#     train_x, train_y, test_x, test_y, val_x, val_y, n_classes = model.insert_values(train_path,test_path)
+#     his,res,avg = model.run_n_times(train_x, train_y, test_x, test_y, val_x, val_y, n=3)
+#     print (avg)
