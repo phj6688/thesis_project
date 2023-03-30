@@ -1,167 +1,163 @@
-import numpy as np
-np.random.seed(100)
-import pandas as pd
-from sklearn.utils import shuffle
-from sklearn.metrics import accuracy_score
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv1D, GlobalMaxPooling1D, Dropout
-from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+import tensorflow as tf
+import tensorflow.keras.backend as K
+import tensorflow.keras.layers as layers
+import tensorflow.keras.regularizers as regularizers
+from tensorflow.keras.models import Model
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.callbacks import TensorBoard
 import tensorflow_addons as tfa
-import tensorflow as tf
-tf.random.set_seed(100)
 from datetime import datetime
-import random
-random.seed(100)
-import gc
-import os
+from sklearn.model_selection import train_test_split
+import numpy as np
+import pandas as pd
 import pickle
+import os
+import json
+import random
+
 os.environ['CUDA_VISIBLE_DEVICES'] = ''
-
-
+np.random.seed(100)
+random.seed(100)
+tf.random.set_seed(100)
 
 
 class CNN:
-    
-    def __init__(self, sentence_length, dimensions, w2v_path):
-        self.sentence_length = sentence_length
-        with open(w2v_path, 'rb') as f:            
+    def __init__(self, dims, w2v_path, max_seq_len=20, batch_size=128, epochs=20, chunk_size=1000):
+        self.dims = dims
+        self.max_seq_len = max_seq_len
+        self.batch_size = batch_size
+        self.chunk_size = chunk_size
+        self.epochs = epochs
+        with open(w2v_path, 'rb') as f:
             self.w2v = pickle.load(f)
-        self.dimensions = dimensions        
-        self.num_classes = None        
         self.model = None
-        self.label_mapping = None      
+        self.n_classes = None
+        self.history = None
+        self.metrics = None
+        self.callbacks = None
 
     def build_cnn(self):
-        if self.num_classes > 2:
+        if self.n_classes > 2:
             loss = 'categorical_crossentropy'
             activation = 'softmax'
         else:
             loss = 'binary_crossentropy'
             activation = 'sigmoid'
 
-        metrics = [
-        tf.keras.metrics.Precision(name='precision'),
-        tf.keras.metrics.Recall(name='recall'),
-        tf.keras.metrics.AUC(name='auc'),
-        tfa.metrics.F1Score(self.num_classes, average='weighted', name='f1_score')]
+        input_layer = layers.Input(shape=(self.max_seq_len, 300))
+        conv1_1 = layers.Conv1D(128, 4, activation='relu', padding='same')(input_layer)
+        conv1_2 = layers.Conv1D(128, 5, activation='relu', padding='same')(conv1_1)
+        #conv1_3 = layers.Conv1D(128, 5, activation='relu', padding='same')(conv1_2)
+        conv_out = layers.Concatenate(axis=1)([conv1_1, conv1_2])
 
-        optimizer = tf.keras.optimizers.Adam(learning_rate=0.0005)
-        # optimizer = tf.keras.optimizers.RMSprop(learning_rate=0.001)
+        dropout_rate = 0.5
+        dropout_out1 = layers.Dropout(dropout_rate)(conv_out)
 
+        pool_out = layers.MaxPool1D(pool_size=self.max_seq_len, padding='valid')(dropout_out1)
+        flatten_out = layers.Flatten()(pool_out)
+        dropout_out2 = layers.Dropout(dropout_rate)(flatten_out)
+        dense_out = layers.Dense(self.n_classes, activation=activation, kernel_regularizer=regularizers.L2(0.001))(dropout_out2)
+        
+        self.metrics = [tf.keras.metrics.AUC(name='auc'), tfa.metrics.F1Score(self.n_classes, average='weighted', name='f1_score'), 'accuracy']
+        cnn_model = Model(inputs=input_layer, outputs=dense_out)
+        cnn_model.compile(optimizer='adam', loss=loss, metrics=self.metrics)
+        #cnn_model.summary()
+        self.model = cnn_model
 
-        model = Sequential()
-        model.add(Conv1D(256, 5, activation='relu', input_shape=(self.sentence_length, self.dimensions)))
-        model.add(Dropout(0.5))
-        model.add(GlobalMaxPooling1D())
-        model.add(Dense(256, activation='relu'))
-        model.add(Dense(128, activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(self.num_classes, activation=activation))
-        # model.add(Dense(128, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001), kernel_initializer='he_normal'))
-        # model.add(Dropout(0.5))
-        # model.add(Dense(self.num_classes, activation=activation, kernel_regularizer=tf.keras.regularizers.l2(0.001), kernel_initializer='he_normal'))
-        model.compile(loss=loss, optimizer=optimizer, metrics=metrics)
-        return model
+    def prepare_dataset(self, df):
+        def generator():
+            for _, row in df.iterrows():
+                label = row[0]
+                sentence = row[1]
+                x = np.zeros((self.max_seq_len, 300))
+                y = np.zeros(self.n_classes)
 
-    def fit(self, train_txt):
-        # read in data
-        df_train = pd.read_csv(train_txt, header=None, skiprows=1)
-        df_train = shuffle(df_train, random_state=100)
+                if isinstance(sentence, str):
+                    words = sentence.split()[:self.max_seq_len]
+                    for k, word in enumerate(words):
+                        if word in self.w2v:
+                            x[k, :] = self.w2v[word]
+                y[label] = 1.0
+                yield x, y
 
-        # get number of classes and create label mapping
-        unique_labels = sorted(df_train[0].unique())
-        self.num_classes = len(unique_labels)      
-        self.label_mapping = {label: idx for idx, label in enumerate(unique_labels)}
-
-        # initialize x and y matrices
-        num_lines = len(df_train)
-        x_matrix = np.zeros((num_lines, self.sentence_length, self.dimensions))
-        y_matrix = np.zeros((num_lines, self.num_classes))
-
-
-        # insert values
-        for i, row in df_train.iterrows():
-            label = row[0]
-            label_idx = self.label_mapping[label]
-            sentence = row[1]
-            if isinstance(sentence, str):
-                words = sentence.split()[:self.sentence_length]
-                for j, word in enumerate(words):
-                    if word in self.w2v:
-                        x_matrix[i, j, :] = self.w2v[word]
-            else:
-                print(f"Warning: Skipping row {i} due to invalid sentence data: {sentence}")            
-            y_matrix[i][label_idx] = 1.0
+        dataset = tf.data.Dataset.from_generator(
+        generator,
+        output_signature=(
+            tf.TensorSpec(shape=(self.max_seq_len, 300), dtype=tf.float32),
+            tf.TensorSpec(shape=(self.n_classes,), dtype=tf.float32)
+        )
+    )
+        return dataset
 
 
-        # train model
-        self.model = self.build_cnn()
-        log_dir = "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
+    def insert_values(self, train_path, test_path):
+        train_df = pd.read_csv(train_path)
+        test_df = pd.read_csv(test_path)
+
+        self.n_classes = train_df['class'].nunique()
+        unique_classes = train_df['class'].unique()
+        labels_map = dict(zip(unique_classes, range(self.n_classes)))
+
+        train_df['class'] = train_df['class'].map(labels_map)
+        test_df['class'] = test_df['class'].map(labels_map)
+
+        train_df, val_df = train_test_split(train_df, test_size=0.1, random_state=100)
+        print(f'Train size: {len(train_df)}\nValidation size: {len(val_df)}\nTest size: {len(test_df)}')
+
+        train_df = train_df.sample(frac=1).reset_index(drop=True)
+        test_df = test_df.sample(frac=1).reset_index(drop=True)
+        val_df = val_df.sample(frac=1, random_state=100).reset_index(drop=True)
+
+        train_dataset = self.prepare_dataset(train_df).batch(self.batch_size).prefetch(buffer_size=tf.data.AUTOTUNE)
+        test_dataset = self.prepare_dataset(test_df).batch(self.batch_size).prefetch(buffer_size=tf.data.AUTOTUNE)
+        val_dataset = self.prepare_dataset(val_df).batch(self.batch_size).prefetch(buffer_size=tf.data.AUTOTUNE)
+
+        return train_dataset, test_dataset, val_dataset, self.n_classes
+
+    def fit(self, train_dataset, val_dataset):
+        self.metrics = [tf.keras.metrics.AUC(name='auc'), tfa.metrics.F1Score(self.n_classes, average='weighted', name='f1_score'), 'accuracy']
+        self.build_cnn()
+        self.history = self.model.fit(train_dataset, epochs=self.epochs, validation_data=val_dataset, callbacks=self.callbacks, verbose=1)
+        return self.history
+
+    def evaluate(self, test_dataset):
+        return self.model.evaluate(test_dataset, return_dict=True)
+
+    def run_n_times(self, train_dataset, test_dataset, val_dataset, dataset_name, n=3):
+
+        log_dir = f"logs/fit/cnn/{dataset_name}/" + datetime.now().strftime("%Y%m%d-%H%M%S")
         tensorboard_callback = TensorBoard(log_dir=log_dir, histogram_freq=1)
-#        callbacks = [EarlyStopping(monitor='val_loss', patience=3), tensorboard_callback]
-        callbacks = [
-        EarlyStopping(monitor='val_loss', patience=10),
-        #ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=2, min_lr=0.00001),
-        tensorboard_callback]
+        decay_rate = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=5, verbose=1, mode='auto', min_delta=0.0001 ,min_lr=0.00001)
+        early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, verbose=1, mode='auto', restore_best_weights=True)
+        self.callbacks = [tensorboard_callback, decay_rate, early_stopping]
 
-        self.model.fit(x_matrix, y_matrix, epochs=100, callbacks=callbacks, validation_split=0.1,
-                       batch_size=8, shuffle=True, verbose=0)
-        
-        # clean memory
-        del x_matrix, y_matrix, df_train
-        gc.collect()
+        hist_dict = {}
+        res_dict = {}
+        best_val_loss = float('inf')
+        for i in range(n):
+            print(f'Run {i+1} of {n}')
+            try:
+                self.fit(train_dataset, val_dataset)  # Updated to use train_dataset and val_dataset
+            except tf.errors.ResourceExhaustedError:
+                K.clear_session()
+                self.model = None
+                self.build_cnn()
+                continue
+            res = self.evaluate(test_dataset)  # Updated to use test_dataset
+            res_dict[i+1] = res
+            if self.history.history['val_loss'][-1] < best_val_loss:
+                best_val_loss = self.history.history['val_loss'][-1]
+                self.model.save(f"models/{dataset_name}_best_model.h5")
+            self.model.set_weights([np.zeros(w.shape) for w in self.model.get_weights()])
 
-    def predict(self, test_txt):
-        # read in data
-        df_test = pd.read_csv(test_txt, header=None, skiprows=1)
-        # initialize x and y matrices
-        num_lines = len(df_test)
-        x_matrix = np.zeros((num_lines, self.sentence_length, self.dimensions))
-        y_matrix = np.zeros((num_lines, self.num_classes))
-        
-        # insert values
-        for i, row in df_test.iterrows():
-            label = row[0]
-            label_idx = self.label_mapping[label]
-            sentence = row[1]
-            if isinstance(sentence, str):
-                words = sentence.split()[:self.sentence_length]
-                for j, word in enumerate(words):
-                    if word in self.w2v:
-                        x_matrix[i, j, :] = self.w2v[word]
-            else:
-                print(f"Warning: Skipping row {i} due to invalid sentence data: {sentence}")            
-            y_matrix[i][label_idx] = 1.0
+        avg_dict = {metric: round(sum(values[metric] for values in res_dict.values()) / len(res_dict), 4) for metric in res_dict[1].keys()}
 
-        # evaluate model
-        scores = self.model.evaluate(x_matrix, y_matrix, batch_size=8, verbose=0)
+        # Save the average results to disk
+        os.makedirs("results/cnn", exist_ok=True)
+        with open(f"results/cnn/{dataset_name}_avg_results.txt", "w") as f:
+            for key, value in avg_dict.items():
+                f.write(f"{key}: {value}\n")
 
-        # print results
-        metric_names = self.model.metrics_names
-        results = {name: score for name, score in zip(metric_names, scores)}
-        for name, score in results.items():
-            print(f"{name}: {score}")
+        K.clear_session()
 
-        # clean memory
-        del x_matrix, y_matrix, df_test
-        return results
-
-
-
-if __name__=='__main__':
-
-    # hyperparameters
-    sentence_length = 128
-    dimensions = 300    
-    w2v_file = 'w2v.pkl'
-    train_file = './data/original/cardio/train.csv'
-    test_file = './data/original/cardio/test.csv'
-    # train model
-    model = CNN(sentence_length, dimensions, w2v_file)
-    model.fit(train_file)
-    os.system('clear')
-    # test model
-    acc = model.predict(test_file)
-    print('Test accuracy: {}'.format(acc))
-
+        return hist_dict, res_dict, avg_dict
