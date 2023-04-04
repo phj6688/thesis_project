@@ -1,4 +1,5 @@
 from bert import BERT
+from transformers import TrainingArguments
 
 #dataset_list = ['trec','agnews', 'pc', 'yelp', 'cr', 'kaggle_med', 'cardio', 'bbc', 'sst2','subj']
 dataset_list = ['trec']
@@ -10,12 +11,23 @@ if __name__ == '__main__':
             train_path  = f'data/original/{name}/train.csv'
             test_path   = f'data/original/{name}/test.csv'
             model_name = 'bert-base-uncased'
-            max_seq_len = 128
-            batch_size = 16
-            epochs = 10
-            bert = BERT(model_name=model_name, max_seq_len=max_seq_len, batch_size=batch_size, epochs=epochs)
-            train_dataset, test_dataset, val_dataset = bert.prepare_data(train_path, test_path)
-            hist_dict, res_dict, avg_dict = bert.run_n_times(train_dataset, test_dataset, val_dataset, name, n=3)
+            training_args = TrainingArguments(
+                output_dir='./results/bert',
+                num_train_epochs=3,
+                per_device_train_batch_size=16,
+                per_device_eval_batch_size=64,
+                evaluation_strategy="epoch",
+                eval_steps=100,
+                logging_steps=10,
+                save_steps=0,
+                logging_dir='./logs/bert',
+                learning_rate=2e-5,
+            )
+
+
+
+            bert = BERT(train_path, test_path, training_args, model_name=model_name, max_seq_len=512)            
+            avg_dict = bert.run_n_times(name, n=3)
             print('---------------------------------------------------')
             print(f'Average results for {name} dataset')
             print(avg_dict)

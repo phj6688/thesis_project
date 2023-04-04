@@ -1,0 +1,4 @@
+loss: 0.3682
+auc: 0.985
+f1_score: 0.8741
+accuracy: 0.8807
