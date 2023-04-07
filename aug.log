@@ -146,3 +146,121 @@
 2023-03-31 20:01:26,266:INFO:__main__:Augmentation completed successfully for yelp dataset using aeda method. Augmented 27000 examples.
 2023-03-31 20:01:26,266:INFO:__main__:Starting augmentation for yelp dataset using checklist method
 2023-03-31 20:01:26,300:INFO:__main__:Loaded yelp dataset with 9000 rows successfully
+2023-04-05 17:08:24,595:INFO:__main__:Starting augmentation for cr dataset using aeda method
+2023-04-05 17:08:24,606:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-04-05 17:09:29,656:INFO:__main__:Augmentation completed successfully for cr dataset using aeda method. Augmented 20335 examples.
+2023-04-05 17:09:29,656:INFO:__main__:Starting augmentation for cr dataset using checklist method
+2023-04-05 17:09:29,662:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-04-05 18:42:04,041:INFO:__main__:Augmentation completed successfully for cr dataset using checklist method. Augmented 11576 examples.
+2023-04-05 18:42:04,043:INFO:__main__:Starting augmentation for cr dataset using eda method
+2023-04-05 18:42:04,057:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-04-05 18:55:51,343:INFO:__main__:Augmentation completed successfully for cr dataset using eda method. Augmented 20326 examples.
+2023-04-05 18:55:51,343:INFO:__main__:Starting augmentation for cr dataset using wordnet method
+2023-04-05 18:55:51,349:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-04-05 19:22:27,202:INFO:__main__:Augmentation completed successfully for cr dataset using wordnet method. Augmented 20306 examples.
+2023-04-05 19:22:27,203:INFO:__main__:Starting augmentation for cr dataset using charswap method
+2023-04-05 19:22:27,208:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-04-05 19:38:28,273:INFO:__main__:Augmentation completed successfully for cr dataset using charswap method. Augmented 20335 examples.
+2023-04-05 19:38:28,273:INFO:__main__:Starting augmentation for cr dataset using deletion method
+2023-04-05 19:38:28,278:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-04-05 19:46:52,552:INFO:__main__:Augmentation completed successfully for cr dataset using deletion method. Augmented 20290 examples.
+2023-04-05 19:46:52,552:INFO:__main__:Starting augmentation for cr dataset using embedding method
+2023-04-05 19:46:52,559:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-04-05 22:48:12,566:INFO:__main__:Augmentation completed successfully for cr dataset using embedding method. Augmented 20300 examples.
+2023-04-05 22:48:12,566:INFO:__main__:Starting augmentation for cr dataset using clare method
+2023-04-05 22:48:12,582:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-04-05 23:10:31,704:ERROR:__main__:Error in augmenting cr dataset with clare method: HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/vocab.txt (Caused by SSLError(SSLError(1, '[SSL: KRB5_S_TKT_NYV] unexpected eof while reading (_ssl.c:1091)')))
+Traceback (most recent call last):
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/urllib3/connectionpool.py", line 710, in urlopen
+    chunked=chunked,
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/urllib3/connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/urllib3/connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/urllib3/connection.py", line 424, in connect
+    tls_in_tls=tls_in_tls,
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/urllib3/util/ssl_.py", line 450, in ssl_wrap_socket
+    sock, context, tls_in_tls, server_hostname=server_hostname
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/urllib3/util/ssl_.py", line 493, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/root/miniconda3/envs/thesis/lib/python3.7/ssl.py", line 423, in wrap_socket
+    session=session
+  File "/root/miniconda3/envs/thesis/lib/python3.7/ssl.py", line 870, in _create
+    self.do_handshake()
+  File "/root/miniconda3/envs/thesis/lib/python3.7/ssl.py", line 1139, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLError: [SSL: KRB5_S_TKT_NYV] unexpected eof while reading (_ssl.c:1091)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/requests/adapters.py", line 499, in send
+    timeout=timeout,
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/vocab.txt (Caused by SSLError(SSLError(1, '[SSL: KRB5_S_TKT_NYV] unexpected eof while reading (_ssl.c:1091)')))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "aug.py", line 54, in <module>
+    include_original=True)
+  File "/tf/thesis_project/functions.py", line 81, in augment_text
+    res = augmenter.augment(txt)
+  File "/tf/thesis_project/clare.py", line 16, in augment
+    tokenizer = transformers.BertTokenizer.from_pretrained(model_name)
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/transformers/tokenization_utils_base.py", line 1777, in from_pretrained
+    _commit_hash=commit_hash,
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/transformers/utils/hub.py", line 420, in cached_file
+    local_files_only=local_files_only,
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/huggingface_hub/utils/_validators.py", line 124, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/huggingface_hub/file_download.py", line 1110, in hf_hub_download
+    timeout=etag_timeout,
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/huggingface_hub/utils/_validators.py", line 124, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/huggingface_hub/file_download.py", line 1439, in get_hf_file_metadata
+    timeout=timeout,
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/huggingface_hub/file_download.py", line 413, in _request_wrapper
+    **params,
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/huggingface_hub/file_download.py", line 449, in _request_wrapper
+    **params,
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/huggingface_hub/utils/_http.py", line 129, in http_backoff
+    response = requests.request(method=method, url=url, **kwargs)
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/root/miniconda3/envs/thesis/lib/python3.7/site-packages/requests/adapters.py", line 563, in send
+    raise SSLError(e, request=request)
+requests.exceptions.SSLError: HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /bert-base-uncased/resolve/main/vocab.txt (Caused by SSLError(SSLError(1, '[SSL: KRB5_S_TKT_NYV] unexpected eof while reading (_ssl.c:1091)')))
+2023-04-05 23:10:31,729:INFO:__main__:Starting augmentation for cr dataset using backtranslation method
+2023-04-05 23:10:31,736:INFO:__main__:Loaded cr dataset with 4067 rows successfully
+2023-04-06 23:12:50,470:INFO:__main__:Augmentation completed successfully for cr dataset using backtranslation method. Augmented 14206 examples.
+2023-04-06 23:12:50,471:INFO:__main__:Starting augmentation for kaggle_med dataset using aeda method
+2023-04-06 23:12:50,493:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-04-06 23:12:51,331:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using aeda method. Augmented 21225 examples.
+2023-04-06 23:12:51,331:INFO:__main__:Starting augmentation for kaggle_med dataset using checklist method
+2023-04-06 23:12:51,337:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-04-07 00:53:20,344:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using checklist method. Augmented 10203 examples.
+2023-04-07 00:53:20,348:INFO:__main__:Starting augmentation for kaggle_med dataset using eda method
+2023-04-07 00:53:20,372:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-04-07 01:11:25,640:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using eda method. Augmented 21220 examples.
+2023-04-07 01:11:25,641:INFO:__main__:Starting augmentation for kaggle_med dataset using wordnet method
+2023-04-07 01:11:25,648:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-04-07 01:42:35,348:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using wordnet method. Augmented 21200 examples.
+2023-04-07 01:42:35,348:INFO:__main__:Starting augmentation for kaggle_med dataset using charswap method
+2023-04-07 01:42:35,354:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-04-07 02:18:17,581:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using charswap method. Augmented 21225 examples.
+2023-04-07 02:18:17,581:INFO:__main__:Starting augmentation for kaggle_med dataset using deletion method
+2023-04-07 02:18:17,587:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-04-07 02:30:24,843:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using deletion method. Augmented 21225 examples.
+2023-04-07 02:30:24,843:INFO:__main__:Starting augmentation for kaggle_med dataset using embedding method
+2023-04-07 02:30:24,849:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully
+2023-04-07 07:43:24,323:INFO:__main__:Augmentation completed successfully for kaggle_med dataset using embedding method. Augmented 21130 examples.
+2023-04-07 07:43:24,323:INFO:__main__:Starting augmentation for kaggle_med dataset using clare method
+2023-04-07 07:43:24,330:INFO:__main__:Loaded kaggle_med dataset with 4245 rows successfully

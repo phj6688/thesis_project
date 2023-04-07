@@ -15,7 +15,7 @@ logger.addHandler(file_handler)
 
 
 pct_words_to_swap = 0.5
-example = 2
+example = 4
 
 dict_datasets = {
     'cr': './data/original/cr/train.csv',
