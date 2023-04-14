@@ -23,7 +23,10 @@ if __name__ == "__main__":
         # model will be saved during the training process
         simple_bert.save_results(f"results/bert/{dataset}_result.txt")
         print(f"Saved model and results for {dataset} dataset")
+        print('cleaning up the checkpoint folders')
+        simple_bert.clean_up()
         print(f'results: \n\n\n{res}\n\n\n')
+
 
         #pre_last_layer_output = simple_bert.extract_pre_last_layer(text)
         #print(pre_last_layer_output)
