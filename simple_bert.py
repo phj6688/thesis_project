@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import shutil
+import glob
 from simpletransformers.classification import ClassificationModel
 import torch
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
@@ -74,6 +76,14 @@ class SimpleBert:
                 if key != 'compute_metrics':
                     f.write(f"{key}: {round(value,4)}\n")
 
+
+    def clean_up(self):
+        #remove all checkpoints folders 
+        checkpoints_folder = f'./models/bert/{self.dataset_name}'
+        pattern = f'{checkpoints_folder}/checkpoint-*'
+
+        for folder in glob.glob(pattern):
+            shutil.rmtree(folder)
 
 
     def extract_pre_last_layer(self, text):
