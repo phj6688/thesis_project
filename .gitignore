@@ -3,4 +3,7 @@ glove*
 w2v*
 ipynb_checkpoints
 logs
-
+.hypothesis
+runs
+outputs
+cache*
