@@ -12,14 +12,28 @@ np.random.seed(100)
 class SimpleBert:
     def __init__(self, dataset_name):
         self.dataset_name = dataset_name
+        # self.args = {
+        # 'output_dir': f'./models/bert/{self.dataset_name}',
+        # 'reprocess_input_data': True,
+        # 'overwrite_output_dir': True,
+        # 'train_batch_size': 8,
+        # 'num_train_epochs': 10,
+        # 'use_multiprocessing': False,
+        # 'use_multiprocessing_for_evaluation': False,
+        # }
         self.args = {
         'output_dir': f'./models/bert/{self.dataset_name}',
         'reprocess_input_data': True,
         'overwrite_output_dir': True,
-        'train_batch_size': 8,
-        'num_train_epochs': 3,
+        'train_batch_size': 16,
+        'num_train_epochs': 4,
+        'learning_rate': 2e-5,
         'use_multiprocessing': False,
         'use_multiprocessing_for_evaluation': False,
+        'weight_decay': 0.01,
+        'warmup_steps': 500,
+        'gradient_accumulation_steps': 2,
+        'max_seq_length': 128,
         }
         self.train = None
         self.test = None
@@ -30,7 +44,7 @@ class SimpleBert:
 
     def load_data(self):
         encoder = LabelEncoder()
-        self.train = pd.read_csv(f'data/original/{self.dataset_name}/train.csv').sample(frac=1) # shuffle
+        self.train = pd.read_csv(f'data/original/{self.dataset_name}/train.csv').sample(frac=0.1) # shuffle
         self.test = pd.read_csv(f'data/original/{self.dataset_name}/test.csv')
         self.train = self.train[['text', 'class']]
         self.test = self.test[['text', 'class']]
@@ -65,6 +79,23 @@ class SimpleBert:
 
     # def save_model(self, output_dir):
     #     self.model.save_model(output_dir)
+    # run model n=3 times and save the best model and average metrics
+    def run_n_times(self, n):
+        avg_dict = {}
+        for i in range(n):
+            self.model = ClassificationModel('distilbert', 'distilbert-base-uncased', num_labels=self.num_labels, cuda_device=0, use_cuda=True, args=self.args)
+            self.train_model()
+            self.evaluate_model()
+            for key, value in self.result_metrics.items():
+                if key in avg_dict:
+                    avg_dict[key] += value
+                else:
+                    avg_dict[key] = value
+                    
+        # Calculate the average values of the metrics
+        avg_dict = {key: value / n for key, value in avg_dict.items()}
+        self.result_metrics = avg_dict
+        return avg_dict
 
     def save_results(self, output_file):
         with open(output_file, 'w') as f:
@@ -76,7 +107,6 @@ class SimpleBert:
                 if key != 'compute_metrics':
                     f.write(f"{key}: {round(value,4)}\n")
 
-
     def clean_up(self):
         #remove all checkpoints folders 
         checkpoints_folder = f'./models/bert/{self.dataset_name}'
@@ -84,7 +114,6 @@ class SimpleBert:
 
         for folder in glob.glob(pattern):
             shutil.rmtree(folder)
-
 
     def extract_pre_last_layer(self, text):
         # Tokenize the input text

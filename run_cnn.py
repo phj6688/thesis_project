@@ -1,7 +1,7 @@
 from  cnn import CNN
 
 #dataset_list = ['cardio']
-dataset_list = ['bbc','sst2','yelp','subj','agnews','trec','pc','cr','kaggle_med']
+dataset_list = ['bbc','sst2','yelp','subj','agnews','trec','pc','cr','kaggle_med','cardio']
 
 if __name__ == '__main__':
     for name in dataset_list:
