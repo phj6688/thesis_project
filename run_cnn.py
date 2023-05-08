@@ -7,7 +7,7 @@ if __name__ == '__main__':
     for name in dataset_list:
         try:
             print(f'Running {name} dataset')
-            train_path = f'data/original/{name}/train.csv'
+            train_path = f'data/original/{name}/train_10.csv'
             test_path = f'data/original/{name}/test.csv'
             w2v_path = 'w2v.pkl'
             dataset_name = f'{name}'

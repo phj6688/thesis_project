@@ -15,7 +15,7 @@ import os
 import json
 import random
 
-os.environ['CUDA_VISIBLE_DEVICES'] = ''
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 np.random.seed(100)
 random.seed(100)
 tf.random.set_seed(100)
@@ -154,7 +154,7 @@ class CNN:
 
         # Save the average results to disk
         os.makedirs("results/cnn", exist_ok=True)
-        with open(f"results/cnn/{dataset_name}_avg_results.txt", "w") as f:
+        with open(f"results/cnn/10_percent/{dataset_name}_10_results.txt", "w") as f:
             for key, value in avg_dict.items():
                 f.write(f"{key}: {value}\n")
 
