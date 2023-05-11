@@ -154,7 +154,7 @@ class CNN:
 
         # Save the average results to disk
         os.makedirs("results/cnn", exist_ok=True)
-        with open(f"results/cnn/10_percent/{dataset_name}_10_results.txt", "w") as f:
+        with open(f"results/cnn/{dataset_name}_20_results.txt", "w") as f:
             for key, value in avg_dict.items():
                 f.write(f"{key}: {value}\n")
 
