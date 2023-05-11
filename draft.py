@@ -1,9 +1,14 @@
-import torch
+# import torch
 
-print("GPU available:", torch.cuda.is_available())
-print("PyTorch version:", torch.__version__)
-print("CUDA version:", torch.version.cuda)
-print("cuDNN version:", torch.backends.cudnn.version())
+# print("GPU available:", torch.cuda.is_available())
+# print("PyTorch version:", torch.__version__)
+# print("CUDA version:", torch.version.cuda)
+# print("cuDNN version:", torch.backends.cudnn.version())
+
+
+import tensorflow as tf
+print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+print("gpu availability: ", tf.test.is_gpu_available())
 
 
 # import numpy as np
