@@ -11,23 +11,20 @@ file_handler = logging.FileHandler('aug.log')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
-
-
-
 pct_words_to_swap = 0.5
 example = 4
 
 dict_datasets = {
-    'cr': './data/original/cr/train.csv',
-    'kaggle_med': './data/original/kaggle_med/train.csv',
-    'trec': './data/original/trec/train.csv',
-    'sst2': './data/original/sst2/train.csv',
-    'subj': './data/original/subj/train.csv',
+    # 'cr': './data/original/cr/train.csv',
+    # 'kaggle_med': './data/original/kaggle_med/train.csv',
+    # 'trec': './data/original/trec/train.csv',
+    # 'sst2': './data/original/sst2/train.csv',
+    # 'subj': './data/original/subj/train.csv',
     'yelp': './data/original/yelp/train.csv',
-    'bbc': './data/original/bbc/train.csv',
-    'pc': './data/original/pc/train.csv',
-    'agnews': './data/original/agnews/train.csv',
-    'cardio': './data/original/cardio/train.csv'
+    # 'bbc': './data/original/bbc/train.csv',
+    # 'pc': './data/original/pc/train.csv',
+    # 'agnews': './data/original/agnews/train.csv',
+    # 'cardio': './data/original/cardio/train.csv'
 }
 
 
@@ -49,7 +46,11 @@ for dataset_name, dataset_path in dict_datasets.items():
         try:
             df = load_data(dataset_path)
             logger.info(f'Loaded {dataset_name} dataset with {len(df)} rows successfully')
-            result = augment_text(df, method_func_name, fraction=1, pct_words_to_swap=pct_words_to_swap,
+
+            # Initialize augmenter only once
+            augmenter = get_augmenter(method_func_name, pct_words_to_swap, example)
+
+            result = augment_text(df, augmenter, fraction=1, pct_words_to_swap=pct_words_to_swap,
                                   transformations_per_example=example, label_column='class', target_column='text',
                                   include_original=True)
 
