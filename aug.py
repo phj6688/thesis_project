@@ -32,9 +32,9 @@ dict_datasets = {
 
 
 dict_methods = {
-    'aeda': 'aeda_augmenter',
-    'checklist': 'checklist_augmenter',
-    'eda': 'eda_augmenter',
+    # 'aeda': 'aeda_augmenter',
+    # 'checklist': 'checklist_augmenter',
+    # 'eda': 'eda_augmenter',
     'wordnet': 'wordnet_augmenter',
     'charswap': 'charswap_augmenter',
     'deletion': 'deletion_augmenter',
