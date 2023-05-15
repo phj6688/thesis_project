@@ -3,6 +3,9 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 import logging
+import os 
+
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

@@ -3,6 +3,9 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 import logging
+import os 
+
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -20,9 +23,9 @@ dict_datasets = {
     # 'trec': './data/original/trec/train.csv',
     # 'sst2': './data/original/sst2/train.csv',
     # 'subj': './data/original/subj/train.csv',
-    'yelp': './data/original/yelp/train.csv',
+    #'yelp': './data/original/yelp/train.csv',
     # 'bbc': './data/original/bbc/train.csv',
-    # 'pc': './data/original/pc/train.csv',
+     'pc': './data/original/pc/train.csv',
     # 'agnews': './data/original/agnews/train.csv',
     # 'cardio': './data/original/cardio/train.csv'
 }
