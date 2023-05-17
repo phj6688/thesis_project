@@ -11,3 +11,12 @@
 2023-05-15 16:09:48,946:INFO:__main__:Loaded pc dataset with 39865 rows successfully
 2023-05-15 17:42:39,363:INFO:__main__:Starting augmentation for pc dataset using wordnet method
 2023-05-15 17:42:39,383:INFO:__main__:Loaded pc dataset with 39865 rows successfully
+2023-05-16 15:51:48,811:INFO:__main__:Augmentation completed successfully for pc dataset using wordnet method. Augmented 195567 examples.
+2023-05-16 15:51:48,811:INFO:__main__:Starting augmentation for pc dataset using charswap method
+2023-05-16 15:51:48,834:INFO:__main__:Loaded pc dataset with 39865 rows successfully
+2023-05-17 01:29:31,220:INFO:__main__:Augmentation completed successfully for pc dataset using charswap method. Augmented 199295 examples.
+2023-05-17 01:29:31,221:INFO:__main__:Starting augmentation for pc dataset using deletion method
+2023-05-17 01:29:31,246:INFO:__main__:Loaded pc dataset with 39865 rows successfully
+2023-05-17 04:45:53,867:INFO:__main__:Augmentation completed successfully for pc dataset using deletion method. Augmented 191028 examples.
+2023-05-17 04:45:53,868:INFO:__main__:Starting augmentation for pc dataset using embedding method
+2023-05-17 04:45:53,893:INFO:__main__:Loaded pc dataset with 39865 rows successfully
