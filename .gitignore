@@ -6,4 +6,4 @@ logs
 .hypothesis
 runs
 outputs
-cache*
+cache_dir

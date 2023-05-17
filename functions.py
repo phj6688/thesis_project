@@ -2,7 +2,9 @@ import pandas as pd
 import numpy as np
 from textattack.augmentation import *
 from aeda import Aeda_Augmenter
-from clare import Clare_Augmenter
+#from clare import Clare_Augmenter
+from clare_distil import Clare_Augmenter
+from backtranslation import BackTranslation_Augmenter
 import os
 
 
@@ -38,40 +40,25 @@ def csv_to_txt(file):
     df = df[['class','text']]
     np.savetxt(file[:-4] + '.txt', df.values, fmt='%s')
 
-
-def augment_text(df,aug_method,fraction,pct_words_to_swap,transformations_per_example,
-                label_column='class',target_column='text',include_original=True):
-
-    augmenter_dict = { 
-    'eda_augmenter':EasyDataAugmenter(pct_words_to_swap=pct_words_to_swap,
-                                    transformations_per_example=transformations_per_example)
-                                    ,
-    'wordnet_augmenter':WordNetAugmenter(pct_words_to_swap=pct_words_to_swap,
-                                    transformations_per_example=transformations_per_example)
-                                    ,
-    'clare_augmenter' :Clare_Augmenter(pct_words_to_swap=pct_words_to_swap,
-                                    transformations_per_example=transformations_per_example)
-                                    ,
-    'backtranslation_augmenter':BackTranslationAugmenter(pct_words_to_swap=pct_words_to_swap,
-                                    transformations_per_example=transformations_per_example)
-                                    ,
-    'checklist_augmenter' :CheckListAugmenter(pct_words_to_swap=pct_words_to_swap,
-                                        transformations_per_example=transformations_per_example)
-                                        ,
-    'embedding_augmenter':EmbeddingAugmenter(pct_words_to_swap=pct_words_to_swap,
-                                    transformations_per_example=transformations_per_example)
-                                    ,
-    'deletion_augmenter':DeletionAugmenter(pct_words_to_swap=pct_words_to_swap,
-                                    transformations_per_example=transformations_per_example)
-                                    ,
-    'aeda_augmenter':Aeda_Augmenter(pct_words_to_swap=pct_words_to_swap,
-                            transformations_per_example=transformations_per_example)
-                                    ,
-    'charswap_augmenter':CharSwapAugmenter(pct_words_to_swap=pct_words_to_swap,
-                                    transformations_per_example=transformations_per_example)
+    
+def get_augmenter(aug_method, pct_words_to_swap, transformations_per_example):
+    augmenter_dict = {
+        'eda_augmenter': EasyDataAugmenter,
+        'wordnet_augmenter': WordNetAugmenter,
+        'clare_augmenter': Clare_Augmenter,
+        'backtranslation_augmenter': BackTranslation_Augmenter,
+        'checklist_augmenter': CheckListAugmenter,
+        'embedding_augmenter': EmbeddingAugmenter,
+        'deletion_augmenter': DeletionAugmenter,
+        'aeda_augmenter': Aeda_Augmenter,
+        'charswap_augmenter': CharSwapAugmenter
     }
 
-    augmenter = augmenter_dict[aug_method]
+    return augmenter_dict[aug_method](pct_words_to_swap=pct_words_to_swap, transformations_per_example=transformations_per_example)
+
+def augment_text(df, augmenter, fraction, pct_words_to_swap, transformations_per_example,
+                label_column='class', target_column='text', include_original=True):
+
     os.system('clear')
     df = df.sample(frac=fraction)
     text_list , class_list = [], []
