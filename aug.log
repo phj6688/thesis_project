@@ -1,22 +1,8 @@
-2023-05-15 08:46:13,475:INFO:__main__:Starting augmentation for pc dataset using aeda method
-2023-05-15 08:46:13,495:INFO:__main__:Loaded pc dataset with 39865 rows successfully
-2023-05-15 08:46:14,984:INFO:__main__:Augmentation completed successfully for pc dataset using aeda method. Augmented 199325 examples.
-2023-05-15 08:46:14,984:INFO:__main__:Starting augmentation for pc dataset using checklist method
-2023-05-15 08:46:15,002:INFO:__main__:Loaded pc dataset with 39865 rows successfully
-2023-05-15 09:50:36,916:INFO:__main__:Augmentation completed successfully for pc dataset using checklist method. Augmented 88342 examples.
-2023-05-15 09:50:36,916:INFO:__main__:Starting augmentation for pc dataset using eda method
-2023-05-15 09:50:36,934:INFO:__main__:Loaded pc dataset with 39865 rows successfully
-2023-05-15 16:09:48,927:INFO:__main__:Augmentation completed successfully for pc dataset using eda method. Augmented 196092 examples.
-2023-05-15 16:09:48,927:INFO:__main__:Starting augmentation for pc dataset using wordnet method
-2023-05-15 16:09:48,946:INFO:__main__:Loaded pc dataset with 39865 rows successfully
-2023-05-15 17:42:39,363:INFO:__main__:Starting augmentation for pc dataset using wordnet method
-2023-05-15 17:42:39,383:INFO:__main__:Loaded pc dataset with 39865 rows successfully
-2023-05-16 15:51:48,811:INFO:__main__:Augmentation completed successfully for pc dataset using wordnet method. Augmented 195567 examples.
-2023-05-16 15:51:48,811:INFO:__main__:Starting augmentation for pc dataset using charswap method
-2023-05-16 15:51:48,834:INFO:__main__:Loaded pc dataset with 39865 rows successfully
-2023-05-17 01:29:31,220:INFO:__main__:Augmentation completed successfully for pc dataset using charswap method. Augmented 199295 examples.
-2023-05-17 01:29:31,221:INFO:__main__:Starting augmentation for pc dataset using deletion method
-2023-05-17 01:29:31,246:INFO:__main__:Loaded pc dataset with 39865 rows successfully
-2023-05-17 04:45:53,867:INFO:__main__:Augmentation completed successfully for pc dataset using deletion method. Augmented 191028 examples.
-2023-05-17 04:45:53,868:INFO:__main__:Starting augmentation for pc dataset using embedding method
-2023-05-17 04:45:53,893:INFO:__main__:Loaded pc dataset with 39865 rows successfully
+2023-05-22 09:59:45,853:INFO:__main__:Starting augmentation for pubmed dataset using aeda method
+2023-05-22 09:59:46,032:INFO:__main__:Loaded pubmed dataset with 180040 rows successfully
+2023-05-22 10:00:01,244:INFO:__main__:Augmentation completed successfully for pubmed dataset using aeda method. Augmented 900200 examples.
+2023-05-22 10:00:01,244:INFO:__main__:Starting augmentation for pubmed dataset using checklist method
+2023-05-22 10:00:01,419:INFO:__main__:Loaded pubmed dataset with 180040 rows successfully
+2023-05-23 08:17:18,224:INFO:__main__:Augmentation completed successfully for pubmed dataset using checklist method. Augmented 606336 examples.
+2023-05-23 08:17:18,224:INFO:__main__:Starting augmentation for pubmed dataset using eda method
+2023-05-23 08:17:18,415:INFO:__main__:Loaded pubmed dataset with 180040 rows successfully
