@@ -149,7 +149,7 @@ class LSTM:
 
         # Save the average results to disk
         os.makedirs("results/lstm", exist_ok=True)
-        with open(f"results/lstm/{dataset_name}_50_results.txt", "w") as f:
+        with open(f"results/lstm/{dataset_name}_results.txt", "w") as f:
             for key, value in avg_dict.items():
                 f.write(f"{key}: {value}\n")
 
