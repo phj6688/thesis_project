@@ -15,7 +15,7 @@ import os
 import json
 import random
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+#os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 np.random.seed(100)
 random.seed(100)
 tf.random.set_seed(100)
@@ -142,14 +142,14 @@ class LSTM:
             res_dict[i+1] = res
             if self.history.history['val_loss'][-1] < best_val_loss:
                 best_val_loss = self.history.history['val_loss'][-1]
-                self.model.save(f"models/lstm/{dataset_name}_best_model.h5")
+                self.model.save(f"models/lstm/50_percent/{dataset_name}_best_model.h5")
             self.model.set_weights([np.zeros(w.shape) for w in self.model.get_weights()])
 
         avg_dict = {metric: round(sum(values[metric] for values in res_dict.values()) / len(res_dict), 4) for metric in res_dict[1].keys()}
 
         # Save the average results to disk
-        os.makedirs("results/lstm", exist_ok=True)
-        with open(f"results/lstm/{dataset_name}_results.txt", "w") as f:
+        os.makedirs("results/original/lstm", exist_ok=True)
+        with open(f"results/original/lstm/50_percent/{dataset_name}_results.txt", "w") as f:
             for key, value in avg_dict.items():
                 f.write(f"{key}: {value}\n")
 
