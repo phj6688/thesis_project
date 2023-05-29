@@ -6,3 +6,9 @@
 2023-05-22 04:48:25,823:INFO:__main__:Augmentation completed successfully for agnews dataset using wordnet method. Augmented 599994 examples.
 2023-05-22 04:48:25,823:INFO:__main__:Starting augmentation for agnews dataset using charswap method
 2023-05-22 04:48:25,966:INFO:__main__:Loaded agnews dataset with 120000 rows successfully
+2023-05-23 17:42:20,428:INFO:__main__:Augmentation completed successfully for agnews dataset using charswap method. Augmented 600000 examples.
+2023-05-23 17:42:20,429:INFO:__main__:Starting augmentation for agnews dataset using deletion method
+2023-05-23 17:42:20,606:INFO:__main__:Loaded agnews dataset with 120000 rows successfully
+2023-05-24 06:28:01,027:INFO:__main__:Augmentation completed successfully for agnews dataset using deletion method. Augmented 599973 examples.
+2023-05-24 06:28:01,028:INFO:__main__:Starting augmentation for agnews dataset using embedding method
+2023-05-24 06:28:01,173:INFO:__main__:Loaded agnews dataset with 120000 rows successfully
