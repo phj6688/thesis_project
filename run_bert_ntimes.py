@@ -4,7 +4,7 @@ import numpy as np
 np.random.seed(100)
 
 #dataset_list = ['cr', 'trec', 'agnews', 'pc', 'yelp', 'kaggle_med', 'cardio', 'bbc', 'sst2','subj']
-dataset_list = ['pubmed']
+dataset_list = ['pubmed','bbc']
 
 if __name__ == "__main__":   
     
@@ -22,7 +22,7 @@ if __name__ == "__main__":
             # print(f"Evaluated model for {dataset} dataset")
             # res = simple_bert.evaluate_model()                
             # model will be saved during the training process
-            simple_bert.save_results(f"results/bert/{dataset}_result.txt",write_to_file=True,n_times=True)
+            simple_bert.save_results(f"results/original/bert/full/{dataset}_result.txt",write_to_file=True,n_times=True)
             print(f"Saved model and results for {dataset} dataset")
             print('cleaning up the checkpoint folders')
             simple_bert.clean_up()

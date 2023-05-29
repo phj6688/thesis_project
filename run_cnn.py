@@ -1,6 +1,8 @@
 from  cnn import CNN
 
-dataset_list = ['cardio']
+dataset_list = ['pubmed']
+#dataset_list = ['bbc']
+
 #dataset_list = ['yelp','bbc','sst2','subj','agnews','trec','pc','cr','kaggle_med','cardio']
 #dataset_list = ['pc','cr','kaggle_med','cardio']
 
@@ -8,7 +10,7 @@ if __name__ == '__main__':
     for name in dataset_list:
         try:
             print(f'Running {name} dataset')
-            train_path = f'data/original/{name}/train_50.csv'
+            train_path = f'data/original/{name}/train_10.csv'
             test_path = f'data/original/{name}/test.csv'
             w2v_path = 'w2v.pkl'
             dataset_name = f'{name}'
