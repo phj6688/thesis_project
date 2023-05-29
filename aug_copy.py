@@ -10,7 +10,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
-file_handler = logging.FileHandler('aug.log')
+file_handler = logging.FileHandler('aug_copy.log')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
@@ -20,20 +20,20 @@ example = 4
 dict_datasets = {
     # 'cr': './data/original/cr/train.csv',
     # 'kaggle_med': './data/original/kaggle_med/train.csv',
-    'trec': './data/original/trec/train.csv',
-    'sst2': './data/original/sst2/train.csv',
-    'subj': './data/original/subj/train.csv',
+    #'trec': './data/original/trec/train.csv',
+    #'sst2': './data/original/sst2/train.csv',
+    #'subj': './data/original/subj/train.csv',
     # 'yelp': './data/original/yelp/train.csv',
     # 'bbc': './data/original/bbc/train.csv',
-     'pc': './data/original/pc/train.csv',
+    #'pc': './data/original/pc/train.csv',
     'agnews': './data/original/agnews/train.csv',
     # 'cardio': './data/original/cardio/train.csv'
 }
 
 
 dict_methods = {
-    'aeda': 'aeda_augmenter',
-    'checklist': 'checklist_augmenter',
+    #'aeda': 'aeda_augmenter',
+    #'checklist': 'checklist_augmenter',
     'eda': 'eda_augmenter',
     'wordnet': 'wordnet_augmenter',
     'charswap': 'charswap_augmenter',

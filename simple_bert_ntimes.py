@@ -35,7 +35,7 @@ class SimpleBert:
 
     def load_data(self):
         encoder = LabelEncoder()
-        self.train = pd.read_csv(f'data/original/{self.dataset_name}/train_50.csv').sample(frac=1) # shuffle # change fraction of the dataset here
+        self.train = pd.read_csv(f'data/original/{self.dataset_name}/train.csv').sample(frac=1) # shuffle # change fraction of the dataset here
         self.test = pd.read_csv(f'data/original/{self.dataset_name}/test.csv')
         self.train = self.train[['text', 'class']]
         self.test = self.test[['text', 'class']]

@@ -1,0 +1,8 @@
+2023-05-19 19:37:45,213:INFO:__main__:Starting augmentation for agnews dataset using eda method
+2023-05-19 19:37:45,373:INFO:__main__:Loaded agnews dataset with 120000 rows successfully
+2023-05-20 17:16:34,964:INFO:__main__:Augmentation completed successfully for agnews dataset using eda method. Augmented 599990 examples.
+2023-05-20 17:16:34,964:INFO:__main__:Starting augmentation for agnews dataset using wordnet method
+2023-05-20 17:16:35,126:INFO:__main__:Loaded agnews dataset with 120000 rows successfully
+2023-05-22 04:48:25,823:INFO:__main__:Augmentation completed successfully for agnews dataset using wordnet method. Augmented 599994 examples.
+2023-05-22 04:48:25,823:INFO:__main__:Starting augmentation for agnews dataset using charswap method
+2023-05-22 04:48:25,966:INFO:__main__:Loaded agnews dataset with 120000 rows successfully
