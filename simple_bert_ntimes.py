@@ -13,7 +13,7 @@ class SimpleBert:
     def __init__(self, dataset_name):
         self.dataset_name = dataset_name
         self.args = {
-        'output_dir': f'./models/bert/{self.dataset_name}',
+        'output_dir': f'./models/bert/full/{self.dataset_name}',
         'reprocess_input_data': True,
         'overwrite_output_dir': True,
         'train_batch_size': 8,
@@ -126,7 +126,7 @@ class SimpleBert:
 
     def clean_up(self):
         #remove all checkpoints folders 
-        checkpoints_folder = f'./models/bert/{self.dataset_name}'
+        checkpoints_folder = f'./models/bert/full/{self.dataset_name}'
         pattern = f'{checkpoints_folder}/checkpoint-*'
 
         for folder in glob.glob(pattern):
