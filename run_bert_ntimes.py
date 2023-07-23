@@ -22,7 +22,7 @@ if __name__ == "__main__":
             # print(f"Evaluated model for {dataset} dataset")
             # res = simple_bert.evaluate_model()                
             # model will be saved during the training process
-            simple_bert.save_results(f"results/original/bert/full/{dataset}_full_results.txt",write_to_file=True,n_times=True)
+            simple_bert.save_results(f"results/augmented/bert/full/{dataset}_full_results.txt",write_to_file=True,n_times=True)              # change the aug or original folder here
             print(f"Saved model and results for {dataset} dataset")
             print('cleaning up the checkpoint folders')
             simple_bert.clean_up()

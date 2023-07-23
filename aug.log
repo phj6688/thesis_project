@@ -1,20 +1,2 @@
-2023-05-22 09:59:45,853:INFO:__main__:Starting augmentation for pubmed dataset using aeda method
-2023-05-22 09:59:46,032:INFO:__main__:Loaded pubmed dataset with 180040 rows successfully
-2023-05-22 10:00:01,244:INFO:__main__:Augmentation completed successfully for pubmed dataset using aeda method. Augmented 900200 examples.
-2023-05-22 10:00:01,244:INFO:__main__:Starting augmentation for pubmed dataset using checklist method
-2023-05-22 10:00:01,419:INFO:__main__:Loaded pubmed dataset with 180040 rows successfully
-2023-05-23 08:17:18,224:INFO:__main__:Augmentation completed successfully for pubmed dataset using checklist method. Augmented 606336 examples.
-2023-05-23 08:17:18,224:INFO:__main__:Starting augmentation for pubmed dataset using eda method
-2023-05-23 08:17:18,415:INFO:__main__:Loaded pubmed dataset with 180040 rows successfully
-2023-05-24 01:13:48,007:INFO:__main__:Augmentation completed successfully for pubmed dataset using eda method. Augmented 898230 examples.
-2023-05-24 01:13:48,007:INFO:__main__:Starting augmentation for pubmed dataset using wordnet method
-2023-05-24 01:13:48,180:INFO:__main__:Loaded pubmed dataset with 180040 rows successfully
-2023-05-25 08:09:54,147:INFO:__main__:Augmentation completed successfully for pubmed dataset using wordnet method. Augmented 896225 examples.
-2023-05-25 08:09:54,147:INFO:__main__:Starting augmentation for pubmed dataset using charswap method
-2023-05-25 08:09:54,318:INFO:__main__:Loaded pubmed dataset with 180040 rows successfully
-2023-05-26 12:38:57,492:INFO:__main__:Augmentation completed successfully for pubmed dataset using charswap method. Augmented 899990 examples.
-2023-05-26 12:38:57,492:INFO:__main__:Starting augmentation for pubmed dataset using deletion method
-2023-05-26 12:38:57,648:INFO:__main__:Loaded pubmed dataset with 180040 rows successfully
-2023-05-26 23:56:02,909:INFO:__main__:Augmentation completed successfully for pubmed dataset using deletion method. Augmented 898215 examples.
-2023-05-26 23:56:02,909:INFO:__main__:Starting augmentation for pubmed dataset using embedding method
-2023-05-26 23:56:03,078:INFO:__main__:Loaded pubmed dataset with 180040 rows successfully
+2023-06-24 15:45:42,478:INFO:__main__:Starting augmentation for agnews dataset using embedding method
+2023-06-24 15:45:42,753:INFO:__main__:Loaded agnews dataset with 120000 rows successfully

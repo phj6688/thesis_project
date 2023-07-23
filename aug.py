@@ -26,20 +26,20 @@ dict_datasets = {
     #'yelp': './data/original/yelp/train.csv',
     # 'bbc': './data/original/bbc/train.csv',
      #'pc': './data/original/pc/train.csv',
-    # 'agnews': './data/original/agnews/train.csv',
+     'agnews': './data/original/agnews/train.csv',
     # 'cardio': './data/original/cardio/train.csv',
-    'pubmed': './data/original/pubmed/train.csv',
+    #'pubmed': './data/original/pubmed/train.csv',
 
 }
 
 
 dict_methods = {
-     'aeda': 'aeda_augmenter',
-     'checklist': 'checklist_augmenter',
-     'eda': 'eda_augmenter',
-    'wordnet': 'wordnet_augmenter',
-    'charswap': 'charswap_augmenter',
-    'deletion': 'deletion_augmenter',
+    # 'aeda': 'aeda_augmenter',
+    # 'checklist': 'checklist_augmenter',
+    # 'eda': 'eda_augmenter',
+    #'wordnet': 'wordnet_augmenter',
+    #'charswap': 'charswap_augmenter',
+    #'deletion': 'deletion_augmenter',
     'embedding': 'embedding_augmenter',
     'clare': 'clare_augmenter',
     'backtranslation': 'backtranslation_augmenter'

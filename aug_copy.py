@@ -24,9 +24,9 @@ dict_datasets = {
     #'sst2': './data/original/sst2/train.csv',
     #'subj': './data/original/subj/train.csv',
     # 'yelp': './data/original/yelp/train.csv',
-    # 'bbc': './data/original/bbc/train.csv',
+     'bbc': './data/original/bbc/train.csv',
     #'pc': './data/original/pc/train.csv',
-    'agnews': './data/original/agnews/train.csv',
+    #'agnews': './data/original/agnews/train.csv',
     # 'cardio': './data/original/cardio/train.csv'
 }
 
